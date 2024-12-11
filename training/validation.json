@@ -1,0 +1,10 @@
+[
+    {
+        "input": "Show me the weather forecast for Tokyo",
+        "output": "weather {\"q\": \"Tokyo\", \"appid\": \"your_api_key\"}"
+    },
+    {
+        "input": "Find the Ethereum price",
+        "output": "crypto {}"
+    }
+]
