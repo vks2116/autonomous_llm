@@ -39,6 +39,8 @@ Refer to the below for additional setup instructions.
 
 You will need to collect all the prompts and the suggested APIs to be contacted. The prompts and APIs have to be saved in JSON format. The training files need to be split into training and validation.Sample training and validation files that were used in the project are available in the /training folder.
 
+The data used in training have to be created in a predifined format, and more details can be obtained on the training JSON file format here - https://gorilla.cs.berkeley.edu/blogs/5_how_to_gorilla.html#train-your-own-gorilla
+
 * Importing required libraries:
 
 The training requires the following libraries. Use the following commands to install them:
