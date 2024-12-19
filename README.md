@@ -28,17 +28,12 @@ The installation process includes all required Python libraries and frameworks. 
 Refer to the below for additional setup instructions.
 
 ## Model Training Setup
-Model Training Setup
 
-Pre-training data gathering:
+* Pre-training data gathering:
 
-You will need to collect all the prompts and the suggested APIs to be contacted.
+You will need to collect all the prompts and the suggested APIs to be contacted. The prompts and APIs have to be saved in JSON format. The training files need to be split into training and validation.Sample training and validation files that were used in the project are available in the /training folder.
 
-The prompts and APIs have to be saved in JSON format. The training files need to be split into training and validation.
-
-Sample training and validation files that were used in the project are available in the /training folder.
-
-Importing required libraries:
+* Importing required libraries:
 
 The training requires the following libraries. Use the following commands to install them:
 ```
@@ -52,7 +47,8 @@ The training requires the following libraries. Use the following commands to ins
 !pip install einops==0.7.0
 !pip install bitsandbytes peft flask
 ```
-Configuring fine-tuning parameters for optimization:
+
+* Configuring fine-tuning parameters for optimization:
 
 Below are the parameters we have used in our project. You can update these training parameters and train:
 ```
@@ -73,7 +69,7 @@ training_args = TrainingArguments(
 )
 ```
 
-Model Training:
+## Model Training:
 
 Before training the model, make sure that you have the right GPU procured. We have used A100. Training with 500 prompts takes approximately 10 minutes.
 
@@ -94,7 +90,7 @@ In `LLM_Training.ipynb`, steps for using the trained model for inference include
 2. Configuring the inference pipeline.
 3. Testing the model's output with sample inputs.
 
-Hosting API for enabling trained model reference:
+* Hosting API for enabling trained model reference:
 
 We have provided grok code to enable referencing to the trained model. This can be leveraged in case you want to create a reference to a trained model for multiple users.
 
@@ -103,6 +99,8 @@ The `AutonomousLLM.ipynb` file provides comprehensive details for integrating Go
 1. Setting up GoEx runtime.
 2. Using the fine-tuned model for API responses.
 3. Processing inputs and generating outputs autonomously.
+
+Refere to https://github.com/ShishirPatil/gorilla/blob/main/openfunctions/README.md for additional details. 
 
 ## Contacting API
 In `AutonomousLLM.ipynb`, API integration steps include:
