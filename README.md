@@ -1,7 +1,14 @@
 # README
 
 ## Get Started
+You can get started with Autonomous LLM by cloning this GitHub project. This code has been tested to run on Google Colab environment, and macOS for location inference.
+
+For inference, you will need to install dependencies before getting started.
+
+For model fine-tuning and training, this project leveraged NVIDIA A100. You will need to obtain a similar or better GPU due to memory requirements and the need for large RAM size.
+
 Refer to the attached files to set up your environment and prepare for the implementation. The provided scripts detail the basic initialization steps and outline the resources necessary to begin.
+
 
 ## Install Dependencies
 Install Dependencies
