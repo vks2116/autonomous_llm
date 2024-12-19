@@ -7,7 +7,7 @@ Refer to the attached files to set up your environment and prepare for the imple
 Install Dependencies
 
 The installation process includes all required Python libraries and frameworks. Use the following commands to install dependencies:
-'''
+```
 !pip install openai==0.28
 !pip install -U openai==0.28
 !pip install langchain_openai google-search-results
@@ -23,7 +23,7 @@ The installation process includes all required Python libraries and frameworks. 
 !pip install bitsandbytes peft flask
 !pip install serpapi google-search-results openai langchain streamlit
 !pip install pyngrok
-'''
+```
 
 Refer to the below for additional setup instructions.
 
