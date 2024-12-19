@@ -4,11 +4,26 @@
 Refer to the attached files to set up your environment and prepare for the implementation. The provided scripts detail the basic initialization steps and outline the resources necessary to begin.
 
 ## Install Dependencies
-The installation process includes all required Python libraries and frameworks. Refer to the attached files for precise commands and instructions to set up dependencies such as:
-- HuggingFace Transformers
-- Torch
-- Accelerate
-- Additional API connectors
+Install Dependencies
+
+The installation process includes all required Python libraries and frameworks. Use the following commands to install dependencies:
+!pip install openai==0.28
+!pip install -U openai==0.28
+!pip install langchain_openai google-search-results
+!pip install flask
+!pip install transformers==4.28.1
+!pip install huggingface-hub==0.14.1
+!pip install torch==2.0.1
+!pip install tqdm==4.65.0
+!pip install prompt_toolkit==3.0.38
+!pip install sentencepiece==0.1.99
+!pip install accelerate==0.19.0
+!pip install einops==0.7.0
+!pip install bitsandbytes peft flask
+!pip install serpapi google-search-results openai langchain streamlit
+!pip install pyngrok
+
+Refer to the below for additional setup instructions.
 
 ## Model Training Setup
 The `LLM_Training.ipynb` file provides detailed steps for setting up the training environment. This includes:
