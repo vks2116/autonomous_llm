@@ -100,7 +100,68 @@ In `LLM_Training.ipynb`, steps for using the trained model for inference include
 
 * Hosting API for enabling trained model reference:
 
-We have provided grok code to enable referencing to the trained model. This can be leveraged in case you want to create a reference to a trained model for multiple users.
+We have provided grok code to enable referencing to the trained model. This can be leveraged in case you want to create a reference to a trained model for multiple users. Sample code for hosting grok app is below. 
+```
+import os
+with open('NGROK_AUTH.txt', 'r') as file:
+    NGROK_AUTH_TOKEN = file.read().strip()
+os.environ['NGROK_AUTH_TOKEN'] = NGROK_AUTH_TOKEN
+
+# Install necessary dependencies
+# for hosting flask pyngrok app
+
+# Import libraries
+from flask import Flask, request, jsonify
+from pyngrok import ngrok
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+import os
+from google.colab import userdata
+
+
+# Retrieve ngrok auth token from Colab secrets
+#ngrok_auth_token = userdata.get("NGROK_AUTH_TOKEN")
+ngrok_auth_token = os.getenv("NGROK_AUTH_TOKEN")
+
+if not ngrok_auth_token:
+    raise ValueError("NGROK_AUTH_TOKEN is not set in Colab Secrets.")
+
+# Authenticate ngrok
+ngrok.set_auth_token(ngrok_auth_token)
+
+# Constants
+MODEL_DIR = "/content/drive/MyDrive/W6998-DL/Project/training/weights/checkpoint-1209"
+
+# Load the fine-tuned model and tokenizer
+tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
+model = AutoModelForCausalLM.from_pretrained(MODEL_DIR, device_map="auto", torch_dtype=torch.float16)
+
+def test_model(prompt):
+    inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
+    if "token_type_ids" in inputs:
+        inputs.pop("token_type_ids")
+    outputs = model.generate(**inputs, max_length=200)
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+# Flask app
+app = Flask(__name__)
+
+@app.route('/query', methods=['POST'])
+def query():
+    data = request.json
+    prompt = data.get("prompt", "")
+    response = test_model(prompt)
+    return jsonify({"response": response})
+
+if __name__ == "__main__":
+    # Start ngrok tunnel
+    public_url = ngrok.connect(5000)
+    print(f"Public URL: {public_url}")
+
+    # Run the Flask app
+    app.run(host="0.0.0.0", port=5000)
+
+```
 
 ## API Inferencing with GoEx
 The `AutonomousLLM.ipynb` file provides comprehensive details for integrating GoEx with the trained LLM. Steps include:
