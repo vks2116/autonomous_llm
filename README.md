@@ -11,7 +11,6 @@ Refer to the attached files to set up your environment and prepare for the imple
 
 
 ## Install Dependencies
-Install Dependencies
 
 The installation process includes all required Python libraries and frameworks. Use the following commands to install dependencies:
 ```
