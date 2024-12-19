@@ -1,4 +1,5 @@
 # README
+This is a detailed step-by-step guide to use the autonomous llm framework.
 
 ## Get Started
 You can get started with Autonomous LLM by cloning this GitHub project. This code has been tested to run on Google Colab environment, and macOS for location inference.
