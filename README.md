@@ -28,23 +28,75 @@ The installation process includes all required Python libraries and frameworks. 
 Refer to the below for additional setup instructions.
 
 ## Model Training Setup
-The `LLM_Training.ipynb` file provides detailed steps for setting up the training environment. This includes:
-1. Importing required libraries.
-2. Loading pre-trained models and datasets.
-3. Configuring fine-tuning parameters for optimization.
+Model Training Setup
 
-## Model Training
-The training process outlined in `LLM_Training.ipynb` involves:
-1. Preparing datasets.
-2. Implementing fine-tuning on pre-trained language models.
-3. Logging training progress and saving checkpoints.
-4. Evaluating model performance using test datasets.
+Pre-training data gathering:
+
+You will need to collect all the prompts and the suggested APIs to be contacted.
+
+The prompts and APIs have to be saved in JSON format. The training files need to be split into training and validation.
+
+Sample training and validation files that were used in the project are available in the /training folder.
+
+Importing required libraries:
+
+The training requires the following libraries. Use the following commands to install them:
+```
+!pip install transformers==4.28.1
+!pip install huggingface-hub==0.14.1
+!pip install torch==2.0.1
+!pip install tqdm==4.65.0
+!pip install prompt_toolkit==3.0.38
+!pip install sentencepiece==0.1.99
+!pip install accelerate==0.19.0
+!pip install einops==0.7.0
+!pip install bitsandbytes peft flask
+```
+Configuring fine-tuning parameters for optimization:
+
+Below are the parameters we have used in our project. You can update these training parameters and train:
+```
+# Training arguments
+training_args = TrainingArguments(
+    output_dir=OUTPUT_DIR,
+    evaluation_strategy="steps",
+    eval_steps=100,
+    logging_dir=LOG_DIR,
+    logging_steps=10,
+    per_device_train_batch_size=1,
+    learning_rate=5e-5,
+    num_train_epochs=1,
+    save_strategy="epoch",
+    save_total_limit=2,
+    weight_decay=0.01,
+    report_to="none",
+)
+```
+
+Model Training:
+
+Before training the model, make sure that you have the right GPU procured. We have used A100. Training with 500 prompts takes approximately 10 minutes.
+
+Furthermore, we have used 8-bit quantized data for training:
+```
+model = AutoModelForCausalLM.from_pretrained(
+    MODEL_NAME,
+    device_map="auto",
+    load_in_8bit=True,
+    torch_dtype=torch.float16,
+)
+model.resize_token_embeddings(len(tokenizer))
+```
 
 ## API Inferencing with Training Weights
 In `LLM_Training.ipynb`, steps for using the trained model for inference include:
 1. Loading the trained weights.
 2. Configuring the inference pipeline.
 3. Testing the model's output with sample inputs.
+
+Hosting API for enabling trained model reference:
+
+We have provided grok code to enable referencing to the trained model. This can be leveraged in case you want to create a reference to a trained model for multiple users.
 
 ## API Inferencing with GoEx
 The `AutonomousLLM.ipynb` file provides comprehensive details for integrating GoEx with the trained LLM. Steps include:
